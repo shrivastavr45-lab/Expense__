@@ -10,11 +10,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute     from './routes/AdminRoute';
 
 // Auth pages
-import SignInPage          from './pages/auth/SignInPage';
-import SignUpPage          from './pages/auth/SignUpPage';
-import ForgotPasswordPage  from './pages/auth/ForgotPasswordPage';
-import ResetPasswordPage   from './pages/auth/ResetPasswordPage';
-import VerifyEmailPage     from './pages/auth/VerifyEmailPage';
+import SignInPage from './pages/auth/SignInPage';
+import SignUpPage from './pages/auth/SignUpPage';
 
 // App pages
 import DashboardPage    from './pages/dashboard/DashboardPage';
@@ -42,11 +39,8 @@ export default function App() {
       <Routes>
         {/* Public auth routes */}
         <Route element={<AuthLayout />}>
-          <Route path="/signin"          element={<SignInPage />} />
-          <Route path="/signup"          element={<SignUpPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password"  element={<ResetPasswordPage />} />
-          <Route path="/verify-email"    element={<VerifyEmailPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Route>
 
         {/* Protected app routes */}

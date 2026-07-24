@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { authApi } from '../../api/authApi';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../../components/common/Button';
@@ -11,6 +11,7 @@ export default function SignInPage() {
   const [form, setForm]       = useState({ email: '', password: '' });
   const [errors, setErrors]   = useState({});
   const [loading, setLoading] = useState(false);
+  const [showPw, setShowPw]   = useState(false);
   const { login }             = useAuthStore();
   const navigate              = useNavigate();
   const location              = useLocation();
@@ -31,40 +32,38 @@ export default function SignInPage() {
       toast.success(`Welcome back, ${data.username}!`);
       navigate(from, { replace: true });
     } catch (err) {
-      const msg = err.response?.data?.message ?? '';
-      toast.error(msg.includes('verify') ? 'Please verify your email first' : 'Invalid email or password');
+      toast.error('Invalid email or password');
     } finally { setLoading(false); }
   };
 
   return (
-    <>
-      <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink-1)', letterSpacing: '-0.02em', marginBottom: 6 }}>
-          Welcome back
-        </h1>
-        <p style={{ fontSize: 13, color: 'var(--ink-4)' }}>Sign in to your account to continue</p>
+    <div className="auth-form">
+      <div className="auth-header">
+        <div className="auth-badge">Secure login</div>
+        <h1>Welcome back</h1>
+        <p>Sign in to your account to continue</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit}>
         <Input label="Email address" type="email" placeholder="you@example.com"
           icon={Mail} value={form.email} onChange={set('email')} error={errors.email} />
-        <div>
-          <Input label="Password" type="password" placeholder="••••••••"
+        <div className="relative">
+          <Input label="Password" type={showPw ? 'text' : 'password'} placeholder="Enter your password"
             icon={Lock} value={form.password} onChange={set('password')} error={errors.password} />
-          <div className="flex justify-end mt-2">
-            <Link to="/forgot-password" style={{ fontSize: 12, color: 'var(--accent-mid)', fontWeight: 500 }}
-                  className="hover:underline">Forgot password?</Link>
-          </div>
+          <button type="button" onClick={() => setShowPw(p => !p)}
+            className="absolute right-3.5 top-[34px]" style={{ color: 'var(--ink-4)', padding: 4 }}>
+            {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
+          </button>
         </div>
-        <Button type="submit" loading={loading} className="w-full btn-lg" style={{ marginTop: 8 }}>
+        <Button type="submit" loading={loading} className="w-full btn-lg" style={{ marginTop: 6 }}>
           Sign in <ArrowRight size={15} />
         </Button>
       </form>
-      <p className="text-center mt-6" style={{ fontSize: 13, color: 'var(--ink-4)' }}>
-        No account?{' '}
-        <Link to="/signup" style={{ color: 'var(--accent)', fontWeight: 500 }} className="hover:underline">
-          Create one free
-        </Link>
-      </p>
-    </>
+      <div className="auth-divider">
+        <span>New to ExpenseTracker?</span>
+      </div>
+      <Link to="/signup" className="auth-link">
+        Create your account
+      </Link>
+    </div>
   );
 }

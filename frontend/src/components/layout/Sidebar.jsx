@@ -53,28 +53,32 @@ export default function Sidebar({ open, onClose }) {
         `}
         style={{
           width: 240,
-          background: 'rgba(15, 17, 26, 0.7)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderRight: '1px solid var(--border)',
+          background: 'rgba(15, 17, 26, 0.75)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
         }}
       >
         {/* Logo */}
-        <div className="flex items-center justify-between px-5 py-5">
+        <div className="flex items-center justify-between px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div className="flex items-center gap-2.5">
             <div className="flex items-center justify-center rounded-xl"
-                 style={{ width: 34, height: 34, background: 'rgba(255,255,255,0.15)' }}>
+                 style={{
+                   width: 34, height: 34,
+                   background: 'linear-gradient(135deg, var(--accent), var(--accent-mid))',
+                   boxShadow: '0 2px 8px rgba(99,102,241,0.3)',
+                 }}>
               <TrendingUp size={17} color="#fff" strokeWidth={2.2} />
             </div>
             <div>
-              <p style={{ color: '#fff', fontWeight: 600, fontSize: 14, lineHeight: 1 }}>ExpenseTracker</p>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 10, marginTop: 2 }}>Finance Manager</p>
+              <p style={{ color: '#fff', fontWeight: 600, fontSize: 14, lineHeight: 1, letterSpacing: '-0.01em' }}>ExpenseTracker</p>
+              <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 10, marginTop: 2, letterSpacing: '0.02em' }}>Finance Manager</p>
             </div>
           </div>
           <button className="lg:hidden flex items-center justify-center rounded-lg"
-                  style={{ width: 28, height: 28, background: 'rgba(255,255,255,0.1)' }}
+                  style={{ width: 28, height: 28, background: 'rgba(255,255,255,0.08)' }}
                   onClick={onClose}>
-            <X size={14} color="rgba(255,255,255,0.7)" />
+            <X size={14} color="rgba(255,255,255,0.5)" />
           </button>
         </div>
 
@@ -131,24 +135,29 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* User card + logout */}
-        <div className="p-3" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1"
-               style={{ background: 'rgba(255,255,255,0.08)' }}>
+        <div className="p-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1 transition-all hover:bg-white/[0.12]"
+               style={{ background: 'rgba(255,255,255,0.06)' }}>
             <div className="flex items-center justify-center rounded-full shrink-0"
-                 style={{ width: 32, height: 32, background: 'rgba(255,255,255,0.2)', fontSize: 12, fontWeight: 600, color: '#fff' }}>
+                 style={{
+                   width: 32, height: 32,
+                   background: 'linear-gradient(135deg, var(--accent-bright), var(--accent-mid))',
+                   fontSize: 12, fontWeight: 600, color: '#fff',
+                   boxShadow: '0 2px 6px rgba(99,102,241,0.2)',
+                 }}>
               {initials}
             </div>
             <div className="flex-1 min-w-0">
               <p style={{ color: '#fff', fontWeight: 500, fontSize: 13, lineHeight: 1.2 }} className="truncate">{name}</p>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 10 }} className="truncate">{user?.email}</p>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 10 }} className="truncate">{user?.email}</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm transition-all"
-            style={{ color: 'rgba(255,255,255,0.5)', background: 'transparent' }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#fff'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+            className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm transition-all duration-200"
+            style={{ color: 'rgba(255,255,255,0.35)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#FCA5A5'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; }}
           >
             <LogOut size={15} />
             Sign out
