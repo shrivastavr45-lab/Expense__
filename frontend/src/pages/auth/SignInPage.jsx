@@ -32,7 +32,12 @@ export default function SignInPage() {
       toast.success(`Welcome back, ${data.username}!`);
       navigate(from, { replace: true });
     } catch (err) {
-      toast.error('Invalid email or password');
+      const status = err.response?.status;
+      const message =
+        status === 401 ? 'Invalid email or password'
+        : status === 429  ? 'Too many attempts, try again later'
+        : err.response?.data?.message || (status ? `Request failed (${status})` : 'Network error — check your connection or CORS setup');
+      toast.error(message);
     } finally { setLoading(false); }
   };
 
