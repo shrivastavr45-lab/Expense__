@@ -24,7 +24,4 @@ userSchema.methods.matchPassword = function (entered) {
   return bcrypt.compare(entered, this.password);
 };
 
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
-
 export default mongoose.model('User', userSchema);
