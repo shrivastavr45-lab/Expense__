@@ -6,11 +6,16 @@ out/
 build/
 
 # Environment configurations
+*.env
+*.env.*
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+backend/.env
+frontend/.env
 
 # Logs
 npm-debug.log*
